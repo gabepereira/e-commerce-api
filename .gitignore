@@ -1,3 +1,4 @@
 node_modules
 *.json
 *.toml
+src/config.js
