@@ -1,4 +1,6 @@
 # E-commerce API
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/gabepereira/e-commerce-api.svg)
+
 An e-commerce API with Node.js + Express + MongoDB.
 Model-view-controller architectural pattern.
 
