@@ -43,9 +43,12 @@ exports.post = async(req, res, next) => {
     }
 
     try {
-        await repo.create(req.body);
-        res.status(201).send({
-            message: "Produto cadastrado."
+        await repo.create({
+            title: req.body.title,
+            slug: req.body.slug,
+            description: req.body.description,
+            price: req.body.price,
+            active: true
         });
     } catch (error) {
         e.error(500, res, "Falha ao processar requisição.");
