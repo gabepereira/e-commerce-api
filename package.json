@@ -1,0 +1,29 @@
+{
+  "name": "e-commerce-api",
+  "version": "1.0.0",
+  "description": "An e-commerce API with Node.js + Express + MongoDB. Model-view-controller architectural pattern.",
+  "main": ".bin/server.js",
+  "scripts": {
+    "start": "node .bin/server.js",
+    "api": "nodemon .bin/server.js"
+  },
+  "keywords": [
+    "app",
+    "api",
+    "backend",
+    "node"
+  ],
+  "author": "Gabriel Pereira",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "guid": "0.0.12",
+    "jsonwebtoken": "^7.4.0",
+    "md5": "^2.2.1",
+    "mongoose": "^5.5.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  }
+}
