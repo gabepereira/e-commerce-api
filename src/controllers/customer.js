@@ -23,7 +23,7 @@ exports.post = async(req, res, next) => {
     contract.isEmail(req.body.email);
 
     if (!contract.isValid()) {
-        e.error(400, res);
+        e.error(400, res, "Falha ao validar contrato.");
         return;
     }
 
