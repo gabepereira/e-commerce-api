@@ -2,7 +2,8 @@
 
 exports.get = (req, res, next) => {
     res.status(200).send({
-        title: "Node Store API",
-        version: "1.0.1"
+        title: "e-commerce-api",
+        version: "1.1.0",
+        github: 'https://github.com/gabepereira/e-commerce-api'
     });
 };

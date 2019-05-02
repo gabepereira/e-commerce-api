@@ -2,14 +2,14 @@
 
 const ValidationContract = require('../validators/fluent-validator');
 const repo = require('../repos/product');
-const e = require('../services/error');
+const response = require('../services/response');
 
 exports.get = async(req, res, next) => {
     try {
         let data = await repo.get();
         res.status(200).send(data);
     } catch (error) {
-        e.error(500, res, "Falha ao processar requisição.");
+        response.send(500, res, "Falha ao processar requisição.");
     }
 }
 
@@ -18,7 +18,7 @@ exports.getBySlug = async(req, res, next) => {
         var data = await repo.getBySlug(req.params.slug);
         res.status(200).send(data);
     } catch (error) {
-        e.error(500, res, "Falha ao processar requisição.");
+        response.send(500, res, "Falha ao processar requisição.");
     }
 }
 
@@ -27,7 +27,7 @@ exports.getByTag = async(req, res, next) => {
         const data = await repo.getByTag(req.params.tag);
         res.status(200).send(data);
     } catch (error) {
-        e.error(500, res, "Falha ao processar requisição.");
+        response.send(500, res, "Falha ao processar requisição.");
     }
 }
 
@@ -38,7 +38,7 @@ exports.post = async(req, res, next) => {
     contract.hasMinLen(req.body.description, 1);
 
     if (!contract.isValid()) {
-        e.error(400, res, "Erro de validação do contrato.");
+        response.send(400, res, "Erro de validação do contrato.");
         return;
     }
 
@@ -51,28 +51,24 @@ exports.post = async(req, res, next) => {
             active: true
         });
     } catch (error) {
-        e.error(500, res, "Falha ao processar requisição.");
+        response.send(500, res, "Falha ao processar requisição.");
     }
 };
 
 exports.put = async(req, res, next) => {
     try {
         await repo.update(req.params.id, req.body);
-        res.status(200).send({
-            message: 'Produto atualizado com sucesso!'
-        });
+        response.send(200, res, "Produto atualizado com sucesso!");
     } catch (error) {
-        e.error(500, res, "Falha ao processar requisição.");
+        response.send(500, res, "Falha ao processar requisição.");
     }
 };
 
 exports.delete = async(req, res, next) => {
     try {
-        await repo.delete(req.body.id)
-        res.status(200).send({
-            message: 'Produto removido com sucesso!'
-        });
+        await repo.delete(req.body.id);
+        response.send(200, res, "Produto removido com sucesso!");
     } catch (error) {
-        e.error(500, res, "Falha ao processar requisição.");
+        response.send(500, res, "Falha ao processar requisição.");
     }
 };

@@ -4,14 +4,14 @@ const ValidationContract = require('../validators/fluent-validator');
 const repo = require('../repos/customer');
 const md5 = require('md5');
 const auth = require('../services/auth');
-const e = require('../services/error');
+const response = require('../services/response');
 
 exports.get = async(req, res, next) => {
     try {
         let data = await repo.get();
         res.status(200).send(data);
     } catch (error) {
-        e.error(500, res, "Falha ao processar requisição.");
+        response.send(500, res, "Falha ao processar requisição.");
     }
 }
 
@@ -23,7 +23,7 @@ exports.post = async(req, res, next) => {
     contract.isEmail(req.body.email);
 
     if (!contract.isValid()) {
-        e.error(400, res, "Falha ao validar contrato.");
+        response.send(400, res, "Falha ao validar contrato.");
         return;
     }
 
@@ -34,11 +34,9 @@ exports.post = async(req, res, next) => {
             password: md5(req.body.password + global.SALT_KEY),
             roles: ["user"]
         });
-        res.status(201).send({
-            message: "Cliente cadastrado."
-        });
+        response.send(201, res, "Cliente cadastrado.");
     } catch (error) {
-        e.error(500, res, "Falha ao processar requisição.");
+        response.send(500, res, "Falha ao processar requisição.");
     }
 };
 
@@ -51,7 +49,7 @@ exports.authenticate = async(req, res, next) => {
         });
 
         if (!customer) {
-            e.error(404, res, "Usuário ou senha incorretos.");
+            response.send(404, res, "Usuário ou senha incorretos.");
             return;
         }
 
@@ -70,7 +68,7 @@ exports.authenticate = async(req, res, next) => {
             }
         });
     } catch (error) {
-        e.error(500, res, "Falha ao processar requisição.");
+        response.send(500, res, "Falha ao processar requisição.");
     }
 };
 
@@ -95,6 +93,6 @@ exports.refreshToken = async(req, res, next) => {
             }
         });
     } catch (error) {
-        e.error(500, res, "Falha ao processar requisição.");
+        response.send(500, res, "Falha ao processar requisição.");
     }
 };
